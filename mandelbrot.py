@@ -1,4 +1,4 @@
-import cmath, numpy
+import numpy
 from PIL import Image, ImageDraw
 
 def mandelbrot(c, maxIterations):
