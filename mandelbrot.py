@@ -32,7 +32,6 @@ def plot_fractal(res, bottom_left, top_right, maxIter):
     yvalues_real = yvalues[0]
     yvalues_image = list(range(dim[1]))
 
-    print(xvalues_image)
     points_real = [x + y*1j for x in xvalues_real for y in yvalues_real]
     points_image = [(x, y) for x in xvalues_image for y in yvalues_image]
     points = zip(points_real, points_image)
@@ -48,4 +47,15 @@ def plot_fractal(res, bottom_left, top_right, maxIter):
     out.save(r"fractal.png")
 
 if __name__ == '__main__':
-    plot_fractal(1000, -2 - 1*1j, 1 + 1*1j, 75)
+    resolution = int(input("Resolution: "))
+    
+    c1_r = float(input("Bottom left real: "))
+    c1_i = float(input("Bottom left imaginary: "))
+    c1 = complex(c1_r, c1_i)
+    
+    c2_r = float(input("Top right real: "))
+    c2_i = float(input("Top right imaginary: "))
+    c2 = complex(c2_r, c2_i)
+    
+    iterations = int(input("Iterations: "))
+    plot_fractal(resolution, c1, c2, iterations)
