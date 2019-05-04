@@ -3,8 +3,8 @@ from PIL import Image, ImageDraw
 
 def mandelbrot(c, maxIterations):
     """
-    The generating function to be used for the fractal. Returns the number of 
-    iterations it takes for the value to escape.
+    The generating function to be used for the Mandelbrot set. Returns the 
+    number of iterations it takes for the value to escape.
     """
     z = 0
     i = 0
@@ -15,8 +15,22 @@ def mandelbrot(c, maxIterations):
         i += 1
     return i
 
+def burning_ship(c, maxIterations):
+    """
+    The generating function to be used for the burning ship fractal. Returns 
+    the number of iterations it takes for the value to escape.
+    """
+    z = 0
+    i = 0
+    while i < maxIterations:
+        z = (complex(abs(z.real), abs(z.imag)))**2 + c
+        if abs(z) > 2:
+            break
+        i += 1
+    return i
 
-def plot_fractal(res, bottom_left, top_right, maxIter):
+
+def plot_fractal(res, bottom_left, top_right, maxIter, gen_func):
     """
     Plots the fractal using PIL. res specifies the number of pixels per one 
     unit. bottom_left and top_right are complex numbers specifying the corners 
@@ -45,9 +59,9 @@ def plot_fractal(res, bottom_left, top_right, maxIter):
     d = ImageDraw.Draw(mask)
 
     for z in points:
-        if mandelbrot(z[0], maxIter) != maxIter:
+        if gen_func(z[0], maxIter) != maxIter:
             d.point(z[1], fill=(255, 255, 255))
-            # if the point is not in the mandelbrot set, color it white
+            # if the point is not in the fractal, color it white
     mask.save(r"fractal.tif")
 
 
@@ -63,4 +77,4 @@ if __name__ == '__main__':
     c2 = complex(c2_r, c2_i)
     
     iterations = int(input("Iterations: "))
-    plot_fractal(resolution, c1, c2, iterations)
+    plot_fractal(resolution, c1, c2, iterations, mandelbrot)
