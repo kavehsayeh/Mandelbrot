@@ -60,8 +60,9 @@ def plot_fractal(res, bottom_left, top_right, maxIter, gen_func):
     d = ImageDraw.Draw(mask)
 
     for z in points:
-        if gen_func(z[0], maxIter) != maxIter:
-            d.point(z[1], fill=255)
+        test = gen_func(z[0], maxIter)
+        if test != maxIter:
+            d.point(z[1], fill=int(255*((maxIter - test) / maxIter)))
             # if the point is not in the fractal, color it white
     mask.save(r"fractal.tif")
 
