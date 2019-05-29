@@ -68,8 +68,15 @@ def plot_fractal(res, bottom_left, top_right, maxIter, gen_func):
 
 
 if __name__ == '__main__':
-    resolution = int(input("Resolution: "))
+    while True:
+        fractal = input("Fractal: ")
+        if fractal not in ('mandelbrot', 'burning_ship'):
+            print("Invalid")
+        else:
+            break
     
+    resolution = int(input("Resolution (pixels/unit): "))
+
     c1_r = float(input("Bottom left real: "))
     c1_i = float(input("Bottom left imaginary: "))
     c1 = complex(c1_r, c1_i)
@@ -79,4 +86,5 @@ if __name__ == '__main__':
     c2 = complex(c2_r, c2_i)
     
     iterations = int(input("Iterations: "))
-    plot_fractal(resolution, c1, c2, iterations, mandelbrot)
+
+    plot_fractal(resolution, c1, c2, iterations, fractal)
